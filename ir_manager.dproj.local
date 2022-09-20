@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2022/03/28 20:24:45.000.108,=C:\Users\joaol\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022/03/28 20:26:04.000.175,C:\irrf-info\Forms\PrincipalForm.dfm=C:\Users\joaol\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2022/03/28 20:26:04.000.175,C:\irrf-info\Forms\PrincipalForm.pas=C:\Users\joaol\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022/03/28 20:26:29.000.068,C:\irrf-info\Forms\infoirrf.dproj=C:\Users\joaol\OneDrive\Documentos\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2022/03/28 20:41:41.000.603,=C:\irrf-info\Forms\ConexaoDM.pas</Transaction>
+    <Transaction>2022/03/28 20:41:46.000.730,=C:\irrf-info\Forms\ConexaoForm.pas</Transaction>
+    <Transaction>2022/03/28 20:42:30.000.400,=C:\irrf-info\Forms\FerramentasForm.pas</Transaction>
+    <Transaction>2022/03/28 20:43:04.000.618,=C:\irrf-info\Forms\MsgPadraoForm.pas</Transaction>
+    <Transaction>2022/03/28 20:53:05.000.667,=C:\irrf-info\Forms\ConfiguracoesForm.pas</Transaction>
+    <Transaction>2022/06/14 19:55:50.000.939,=C:\irrf-info\Forms\Unit1.pas</Transaction>
+    <Transaction>2022/06/14 19:59:45.000.493,C:\irrf-info\Forms\Unit1.pas=C:\irrf-info\Forms\CadastrosChecklistIrpfForm.pas</Transaction>
+    <Transaction>2022/06/14 19:59:45.000.493,C:\irrf-info\Forms\Unit1.dfm=C:\irrf-info\Forms\CadastrosChecklistIrpfForm.dfm</Transaction>
+    <Transaction>2022/06/14 20:39:08.000.146,=C:\irrf-info\Forms\Unit1.pas</Transaction>
+    <Transaction>2022/06/14 20:39:28.000.528,C:\irrf-info\Forms\Unit1.dfm=C:\irrf-info\Forms\ClienteDM.dfm</Transaction>
+    <Transaction>2022/06/14 20:39:28.000.528,C:\irrf-info\Forms\Unit1.pas=C:\irrf-info\Forms\ClienteDM.pas</Transaction>
+    <Transaction>2022/06/14 20:51:38.000.792,=C:\irrf-info\Forms\Unit1.pas</Transaction>
+    <Transaction>2022/06/14 20:52:14.000.116,C:\irrf-info\Forms\Unit1.dfm=C:\irrf-info\Forms\CadastrosClienteForm.dfm</Transaction>
+    <Transaction>2022/06/14 20:52:14.000.116,C:\irrf-info\Forms\Unit1.pas=C:\irrf-info\Forms\CadastrosClienteForm.pas</Transaction>
+    <Transaction>2022/06/28 19:30:04.000.259,=C:\irrf-info\Forms\Unit1.pas</Transaction>
+    <Transaction>2022/06/28 19:30:47.000.503,C:\irrf-info\Forms\Unit1.dfm=C:\irrf-info\Forms\NovoClienteForm.dfm</Transaction>
+    <Transaction>2022/06/28 19:30:47.000.503,C:\irrf-info\Forms\Unit1.pas=C:\irrf-info\Forms\NovoClienteForm.pas</Transaction>
+    <Transaction>2022/07/05 19:59:23.000.736,C:\Development\Projetos Delphi\irpf_manager\Forms\infoirrf.dproj=C:\Development\Projetos Delphi\irpf_manager\Forms\ir_manager.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

@@ -1,0 +1,520 @@
+unit NovoClienteForm;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Buttons, System.ImageList,
+  Vcl.ImgList, System.Actions, Vcl.ActnList, Vcl.ComCtrls, Vcl.Mask,
+  Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.ExtActns;
+
+type
+  TNovoClienteFrm = class(TForm)
+    pgcCliente: TPageControl;
+    tbsPag1: TTabSheet;
+    ActionList1: TActionList;
+    actFechar: TAction;
+    actSalvar: TAction;
+    ImageList1: TImageList;
+    SpeedButton2: TSpeedButton;
+    edtNome: TButtonedEdit;
+    edtTituloEleitor: TButtonedEdit;
+    edtApelido: TButtonedEdit;
+    edtCPF: TMaskEdit;
+    tbsPag2: TTabSheet;
+    edtEndereco: TButtonedEdit;
+    edtBairro: TButtonedEdit;
+    edtCEP: TMaskEdit;
+    edtEstado: TButtonedEdit;
+    edtCidade: TButtonedEdit;
+    edtNumero: TButtonedEdit;
+    edtNomeConjugue: TButtonedEdit;
+    edtCPFConjugue: TMaskEdit;
+    TabPreviousTab1: TPreviousTab;
+    TabNextTab1: TNextTab;
+    btnSalvar: TSpeedButton;
+    tbsPag3: TTabSheet;
+    edtNomeDependente1: TButtonedEdit;
+    edtCPFDependente1: TMaskEdit;
+    edtCPFDependente2: TMaskEdit;
+    edtNomeDependente2: TButtonedEdit;
+    edtCPFDependente4: TMaskEdit;
+    edtNomeDependente4: TButtonedEdit;
+    edtCPFDependente5: TMaskEdit;
+    edtNomeDependente5: TButtonedEdit;
+    edtCPFDependente3: TMaskEdit;
+    edtNomeDependente3: TButtonedEdit;
+    cmbParenDependente1: TComboBox;
+    cmbParenDependente4: TComboBox;
+    cmbParenDependente2: TComboBox;
+    cmbParenDependente5: TComboBox;
+    cmbParenDependente3: TComboBox;
+    lblUltimaChecagem: TLabel;
+    pgbProgresso: TProgressBar;
+    procedure actFecharExecute(Sender: TObject);
+    procedure edtCPFEnter(Sender: TObject);
+    procedure edtCPFExit(Sender: TObject);
+    procedure edtCEPEnter(Sender: TObject);
+    procedure edtCEPExit(Sender: TObject);
+    procedure actSalvarExecute(Sender: TObject);
+    procedure edtNomeKeyPress(Sender: TObject; var Key: Char);
+    procedure edtCPFKeyPress(Sender: TObject; var Key: Char);
+    procedure edtTituloEleitorKeyPress(Sender: TObject; var Key: Char);
+    procedure edtApelidoKeyPress(Sender: TObject; var Key: Char);
+    procedure edtNomeConjugueKeyPress(Sender: TObject; var Key: Char);
+    procedure edtCPFConjugueKeyPress(Sender: TObject; var Key: Char);
+    procedure edtCEPKeyPress(Sender: TObject; var Key: Char);
+    procedure edtEnderecoKeyPress(Sender: TObject; var Key: Char);
+    procedure edtNumeroKeyPress(Sender: TObject; var Key: Char);
+    procedure edtBairroKeyPress(Sender: TObject; var Key: Char);
+    procedure edtCidadeKeyPress(Sender: TObject; var Key: Char);
+    procedure edtEstadoKeyPress(Sender: TObject; var Key: Char);
+    procedure edtNomeDependente1KeyPress(Sender: TObject; var Key: Char);
+    procedure edtCPFDependente1KeyPress(Sender: TObject; var Key: Char);
+    procedure edtNomeDependente4KeyPress(Sender: TObject; var Key: Char);
+    procedure edtCPFDependente4KeyPress(Sender: TObject; var Key: Char);
+    procedure edtNomeDependente2KeyPress(Sender: TObject; var Key: Char);
+    procedure edtCPFDependente2KeyPress(Sender: TObject; var Key: Char);
+    procedure edtNomeDependente5KeyPress(Sender: TObject; var Key: Char);
+    procedure edtCPFDependente5KeyPress(Sender: TObject; var Key: Char);
+    procedure edtNomeDependente3KeyPress(Sender: TObject; var Key: Char);
+    procedure edtCPFDependente3KeyPress(Sender: TObject; var Key: Char);
+    procedure FormActivate(Sender: TObject);
+  private
+    { Private declarations }
+    procedure PreencherParentesco(Cmb:TComboBox);
+    procedure Progresso(ProgressBar: TProgressBar);
+  public
+    { Public declarations }
+    OPCadastro:string;
+    procedure Iniciar(Codigo:integer);
+  end;
+
+var
+  NovoClienteFrm: TNovoClienteFrm;
+
+implementation
+
+{$R *.dfm}
+
+uses ClienteDM, FerramentasForm;
+
+procedure TNovoClienteFrm.actFecharExecute(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TNovoClienteFrm.actSalvarExecute(Sender: TObject);
+begin
+  if (edtNome.Text='') then
+    FerramentasFrm.MsgPadrao('INFORME O NOME DO CLIENTE','SALVAR',1)
+  else
+  begin      
+    if (OPCadastro='N') then
+    begin
+      ClienteDtm.qryCliente.Append;
+      ClienteDtm.qryCliente.FieldByName('data_cadastro').AsDateTime:=Now();
+    end
+    else
+    if (OPCadastro='A') then
+    begin
+      ClienteDtm.qryCliente.Edit;
+    end;
+
+    ClienteDtm.qryCliente.FieldByName('nome_cliente').AsString:=edtNome.Text;
+    ClienteDtm.qryCliente.FieldByName('cpf').AsString:=edtCPF.Text;
+    ClienteDtm.qryCliente.FieldByName('apelido').AsString:=edtApelido.Text;
+    ClienteDtm.qryCliente.FieldByName('titulo_eleitor').AsString:=edtTituloEleitor.Text;
+
+    ClienteDtm.qryCliente.FieldByName('nome_conjugue').AsString:=edtNomeConjugue.Text;
+    ClienteDtm.qryCliente.FieldByName('cpf_conjugue').AsString:=edtCPFConjugue.Text;
+
+    ClienteDtm.qryCliente.FieldByName('cep').AsString:=edtCEP.Text;
+    ClienteDtm.qryCliente.FieldByName('endereco').AsString:=edtEndereco.Text;
+    ClienteDtm.qryCliente.FieldByName('numero').AsString:=edtNumero.Text;
+    ClienteDtm.qryCliente.FieldByName('bairro').AsString:=edtBairro.Text;
+    ClienteDtm.qryCliente.FieldByName('cidade').AsString:=edtCidade.Text;
+    ClienteDtm.qryCliente.FieldByName('estado').AsString:=edtEstado.Text;
+
+    ClienteDtm.qryCliente.FieldByName('nome_dependente1').AsString:=edtNomeDependente1.Text;
+    ClienteDtm.qryCliente.FieldByName('cpf_dependente1').AsString:=edtCPFDependente1.Text;
+    if (cmbParenDependente1.ItemIndex>=0) then
+      ClienteDtm.qryCliente.FieldByName('parentesco_depentente1').AsInteger:=cmbParenDependente1.ItemIndex
+    else
+      ClienteDtm.qryCliente.FieldByName('parentesco_depentente1').Clear;
+
+    ClienteDtm.qryCliente.FieldByName('nome_dependente2').AsString:=edtNomeDependente2.Text;
+    ClienteDtm.qryCliente.FieldByName('cpf_dependente2').AsString:=edtCPFDependente2.Text;
+    if (cmbParenDependente2.ItemIndex>=0) then
+      ClienteDtm.qryCliente.FieldByName('parentesco_depentente2').AsInteger:=cmbParenDependente2.ItemIndex
+    else
+      ClienteDtm.qryCliente.FieldByName('parentesco_depentente2').Clear;
+
+    ClienteDtm.qryCliente.FieldByName('nome_dependente3').AsString:=edtNomeDependente3.Text;
+    ClienteDtm.qryCliente.FieldByName('cpf_dependente3').AsString:=edtCPFDependente3.Text;
+    if (cmbParenDependente3.ItemIndex>=0) then
+      ClienteDtm.qryCliente.FieldByName('parentesco_depentente3').AsInteger:=cmbParenDependente3.ItemIndex
+    else
+      ClienteDtm.qryCliente.FieldByName('parentesco_depentente3').Clear;
+
+    ClienteDtm.qryCliente.FieldByName('nome_dependente4').AsString:=edtNomeDependente4.Text;
+    ClienteDtm.qryCliente.FieldByName('cpf_dependente4').AsString:=edtCPFDependente4.Text;
+    if (cmbParenDependente4.ItemIndex>=0) then
+      ClienteDtm.qryCliente.FieldByName('parentesco_depentente4').AsInteger:=cmbParenDependente4.ItemIndex
+    else
+      ClienteDtm.qryCliente.FieldByName('parentesco_depentente4').Clear;
+
+    ClienteDtm.qryCliente.FieldByName('nome_dependente5').AsString:=edtNomeDependente5.Text;
+    ClienteDtm.qryCliente.FieldByName('cpf_dependente5').AsString:=edtCPFDependente5.Text;
+    if (cmbParenDependente5.ItemIndex>=0) then
+      ClienteDtm.qryCliente.FieldByName('parentesco_depentente5').AsInteger:=cmbParenDependente5.ItemIndex
+    else
+      ClienteDtm.qryCliente.FieldByName('parentesco_depentente5').Clear;
+
+    ClienteDtm.qryCliente.FieldByName('ultima_checagem').AsDateTime:=Now;
+
+    try   
+      ClienteDtm.qryCliente.Post;
+      Progresso(pgbProgresso);
+      Close;
+    except
+      on e:exception do
+      begin
+        ClienteDtm.qryCliente.Cancel;
+        FerramentasFrm.MsgPadrao(PChar('OCORREU UM ERRO INESPERADO: '+e.Message),'ERRO',2);
+      end;
+    end;
+  end;
+end;
+
+procedure TNovoClienteFrm.edtApelidoKeyPress(Sender: TObject; var Key: Char);
+begin
+  if (Key=#13) then
+  begin
+    Perform(CM_DIALOGKEY,VK_TAB,0);
+    Key:=#0;
+  end;
+end;
+
+procedure TNovoClienteFrm.edtBairroKeyPress(Sender: TObject; var Key: Char);
+begin
+  if (Key=#13) then
+  begin
+    Perform(CM_DIALOGKEY,VK_TAB,0);
+    Key:=#0;
+  end;
+end;
+
+procedure TNovoClienteFrm.edtCEPEnter(Sender: TObject);
+begin
+  TMaskEdit(Sender).EditMask:='!99999-999;0;_';
+end;
+
+procedure TNovoClienteFrm.edtCEPExit(Sender: TObject);
+begin
+  if (TMaskEdit(Sender).Text='') then
+    TMaskEdit(Sender).EditMask:='';
+end;
+
+procedure TNovoClienteFrm.edtCEPKeyPress(Sender: TObject; var Key: Char);
+begin
+  if (Key=#13) then
+  begin
+    Perform(CM_DIALOGKEY,VK_TAB,0);
+    Key:=#0;
+  end;
+end;
+
+procedure TNovoClienteFrm.edtCidadeKeyPress(Sender: TObject; var Key: Char);
+begin
+  if (Key=#13) then
+  begin
+    Perform(CM_DIALOGKEY,VK_TAB,0);
+    Key:=#0;
+  end;
+end;
+
+procedure TNovoClienteFrm.edtCPFEnter(Sender: TObject);
+begin
+  TMaskEdit(Sender).EditMask:='!999.999.999-99;0;_';
+end;
+
+procedure TNovoClienteFrm.edtCPFExit(Sender: TObject);
+begin
+  if (TMaskEdit(Sender).Text='') then
+    TMaskEdit(Sender).EditMask:='';
+end;
+
+procedure TNovoClienteFrm.edtCPFKeyPress(Sender: TObject; var Key: Char);
+begin
+  if (Key=#13) then
+  begin
+    Perform(CM_DIALOGKEY,VK_TAB,0);
+    Key:=#0;
+  end;
+end;
+
+procedure TNovoClienteFrm.edtNomeDependente2KeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if (Key=#13) then
+  begin
+    Perform(CM_DIALOGKEY,VK_TAB,0);
+    Key:=#0;
+  end;
+end;
+
+procedure TNovoClienteFrm.edtEnderecoKeyPress(Sender: TObject; var Key: Char);
+begin
+  if (Key=#13) then
+  begin
+    Perform(CM_DIALOGKEY,VK_TAB,0);
+    Key:=#0;
+  end;
+end;
+
+procedure TNovoClienteFrm.edtEstadoKeyPress(Sender: TObject; var Key: Char);
+begin
+  if (Key=#13) then
+  begin
+    Perform(CM_DIALOGKEY,VK_TAB,0);
+    Key:=#0;
+  end;
+end;
+
+procedure TNovoClienteFrm.edtNomeConjugueKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if (Key=#13) then
+  begin
+    Perform(CM_DIALOGKEY,VK_TAB,0);
+    Key:=#0;
+  end;
+end;
+
+procedure TNovoClienteFrm.edtNomeDependente1KeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if (Key=#13) then
+  begin
+    Perform(CM_DIALOGKEY,VK_TAB,0);
+    Key:=#0;
+  end;
+end;
+
+procedure TNovoClienteFrm.edtNomeDependente3KeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if (Key=#13) then
+  begin
+    Perform(CM_DIALOGKEY,VK_TAB,0);
+    Key:=#0;
+  end;
+end;
+
+procedure TNovoClienteFrm.edtNomeDependente4KeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if (Key=#13) then
+  begin
+    Perform(CM_DIALOGKEY,VK_TAB,0);
+    Key:=#0;
+  end;
+end;
+
+procedure TNovoClienteFrm.edtNomeDependente5KeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if (Key=#13) then
+  begin
+    Perform(CM_DIALOGKEY,VK_TAB,0);
+    Key:=#0;
+  end;
+end;
+
+procedure TNovoClienteFrm.edtNomeKeyPress(Sender: TObject; var Key: Char);
+begin
+  if (Key=#13) then
+  begin
+    Perform(CM_DIALOGKEY,VK_TAB,0);
+    Key:=#0;
+  end;
+end;
+
+procedure TNovoClienteFrm.edtNumeroKeyPress(Sender: TObject; var Key: Char);
+begin
+  if (Key=#13) then
+  begin
+    Perform(CM_DIALOGKEY,VK_TAB,0);
+    Key:=#0;
+  end;
+end;
+
+procedure TNovoClienteFrm.edtTituloEleitorKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if (Key=#13) then
+  begin
+    Perform(CM_DIALOGKEY,VK_TAB,0);
+    Key:=#0;
+  end;
+end;
+
+procedure TNovoClienteFrm.FormActivate(Sender: TObject);
+begin
+  pgcCliente.ActivePageIndex:=0;
+end;
+
+procedure TNovoClienteFrm.Iniciar(Codigo: integer);
+begin
+  ClienteDtm.qryCliente.Close;
+  ClienteDtm.qryCliente.SQL.Clear;
+  ClienteDtm.qryCliente.SQL.Add(ClienteDtm.Select);
+  ClienteDtm.qryCliente.SQL.Add(ClienteDtm.From);
+  if (Codigo>0) then
+  begin
+    ClienteDtm.qryCliente.SQL.Add('WHERE c.cod_cliente=:Codigo ');
+    ClienteDtm.qryCliente.Params.ParamByName('Codigo').AsInteger:=Codigo;
+  end;
+  ClienteDtm.qryCliente.Open();
+
+  PreencherParentesco(cmbParenDependente1);
+  PreencherParentesco(cmbParenDependente2);
+  PreencherParentesco(cmbParenDependente3);
+  PreencherParentesco(cmbParenDependente4);
+  PreencherParentesco(cmbParenDependente5);
+  
+  if (OPCadastro='A') then
+  begin
+    edtNome.Text:=ClienteDtm.qryCliente.FieldByName('nome_cliente').AsString;
+    edtCPF.Text:=ClienteDtm.qryCliente.FieldByName('cpf').AsString;
+    edtApelido.Text:=ClienteDtm.qryCliente.FieldByName('apelido').AsString;
+    edtTituloEleitor.Text:=ClienteDtm.qryCliente.FieldByName('titulo_eleitor').AsString;
+
+    edtNomeConjugue.Text:=ClienteDtm.qryCliente.FieldByName('nome_conjugue').AsString;
+    edtCPFConjugue.Text:=ClienteDtm.qryCliente.FieldByName('cpf_conjugue').AsString;
+
+    edtCEP.Text:=ClienteDtm.qryCliente.FieldByName('cep').AsString;
+    edtEndereco.Text:=ClienteDtm.qryCliente.FieldByName('endereco').AsString;
+    edtNumero.Text:=ClienteDtm.qryCliente.FieldByName('numero').AsString;
+    edtBairro.Text:=ClienteDtm.qryCliente.FieldByName('bairro').AsString;
+    edtCidade.Text:=ClienteDtm.qryCliente.FieldByName('cidade').AsString;
+    edtEstado.Text:=ClienteDtm.qryCliente.FieldByName('estado').AsString;
+
+    edtNomeDependente1.Text:=ClienteDtm.qryCliente.FieldByName('nome_dependente1').AsString;
+    edtCPFDependente1.Text:=ClienteDtm.qryCliente.FieldByName('cpf_dependente1').AsString;
+    if not (ClienteDtm.qryCliente.FieldByName('parentesco_depentente1').IsNull) then
+      cmbParenDependente1.ItemIndex:=ClienteDtm.qryCliente.FieldByName('parentesco_depentente1').AsInteger;
+
+    edtNomeDependente2.Text:=ClienteDtm.qryCliente.FieldByName('nome_dependente2').AsString;
+    edtCPFDependente2.Text:=ClienteDtm.qryCliente.FieldByName('cpf_dependente2').AsString;
+    if not (ClienteDtm.qryCliente.FieldByName('parentesco_depentente2').IsNull) then
+      cmbParenDependente2.ItemIndex:=ClienteDtm.qryCliente.FieldByName('parentesco_depentente2').AsInteger;
+
+    edtNomeDependente3.Text:=ClienteDtm.qryCliente.FieldByName('nome_dependente3').AsString;
+    edtCPFDependente3.Text:=ClienteDtm.qryCliente.FieldByName('cpf_dependente3').AsString;
+    if not (ClienteDtm.qryCliente.FieldByName('parentesco_depentente3').IsNull) then
+      cmbParenDependente3.ItemIndex:=ClienteDtm.qryCliente.FieldByName('parentesco_depentente3').AsInteger;
+
+    edtNomeDependente4.Text:=ClienteDtm.qryCliente.FieldByName('nome_dependente4').AsString;
+    edtCPFDependente4.Text:=ClienteDtm.qryCliente.FieldByName('cpf_dependente4').AsString;
+    if not (ClienteDtm.qryCliente.FieldByName('parentesco_depentente4').IsNull) then
+      cmbParenDependente4.ItemIndex:=ClienteDtm.qryCliente.FieldByName('parentesco_depentente4').AsInteger;
+
+    edtNomeDependente5.Text:=ClienteDtm.qryCliente.FieldByName('nome_dependente5').AsString;
+    edtCPFDependente5.Text:=ClienteDtm.qryCliente.FieldByName('cpf_dependente5').AsString;
+    if not (ClienteDtm.qryCliente.FieldByName('parentesco_depentente5').IsNull) then
+      cmbParenDependente5.ItemIndex:=ClienteDtm.qryCliente.FieldByName('parentesco_depentente5').AsInteger;
+
+    lblUltimaChecagem.Caption:='ÚLTIMA CHECAGEM EM: '+FormatDateTime('dd/MM/yyyy',ClienteDtm.qryCliente.FieldByName('ultima_checagem').AsDateTime);
+    lblUltimaChecagem.Update;
+  end;
+end;
+
+procedure TNovoClienteFrm.PreencherParentesco(Cmb: TComboBox);
+var
+  lParentesco:TStringList;
+begin
+  lParentesco:=TStringList.Create;
+  lParentesco.Add('1-Filho');
+  lParentesco.Add('2-Enteado');
+  lParentesco.Add('3-Pai');
+  lParentesco.Add('4-Mãe');
+  lParentesco.Add('5-Sogra');
+
+  Cmb.Items.Clear;
+  Cmb.Items:=lParentesco;
+end;
+
+procedure TNovoClienteFrm.Progresso(ProgressBar: TProgressBar);
+begin
+  actSalvar.Enabled:=False;
+  while not (ProgressBar.Position>=ProgressBar.Max) do    
+  begin
+    Application.ProcessMessages;
+    Sleep(300);
+    ProgressBar.Position:=ProgressBar.Position+25;
+  end;
+  actSalvar.Enabled:=True;
+end;
+
+procedure TNovoClienteFrm.edtCPFConjugueKeyPress(Sender: TObject; var Key: Char);
+begin
+  if (Key=#13) then
+  begin
+    Perform(CM_DIALOGKEY,VK_TAB,0);
+    Key:=#0;
+  end;
+end;
+
+procedure TNovoClienteFrm.edtCPFDependente1KeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if (Key=#13) then
+  begin
+    Perform(CM_DIALOGKEY,VK_TAB,0);
+    Key:=#0;
+  end;
+end;
+
+procedure TNovoClienteFrm.edtCPFDependente2KeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if (Key=#13) then
+  begin
+    Perform(CM_DIALOGKEY,VK_TAB,0);
+    Key:=#0;
+  end;
+end;
+
+procedure TNovoClienteFrm.edtCPFDependente3KeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if (Key=#13) then
+  begin
+    Perform(CM_DIALOGKEY,VK_TAB,0);
+    Key:=#0;
+  end;
+end;
+
+procedure TNovoClienteFrm.edtCPFDependente4KeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if (Key=#13) then
+  begin
+    Perform(CM_DIALOGKEY,VK_TAB,0);
+    Key:=#0;
+  end;
+end;
+
+procedure TNovoClienteFrm.edtCPFDependente5KeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if (Key=#13) then
+  begin
+    Perform(CM_DIALOGKEY,VK_TAB,0);
+    Key:=#0;
+  end;
+end;
+
+end.

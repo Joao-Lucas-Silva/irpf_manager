@@ -1,0 +1,79 @@
+unit ClienteDM;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client,
+  Data.DB, FireDAC.Comp.DataSet;
+
+type
+  TClienteDtm = class(TDataModule)
+    qryCliente: TFDQuery;
+    qryGrid: TFDQuery;
+    qryGridcod_cliente: TFDAutoIncField;
+    qryGridnome_cliente: TStringField;
+    qryGridcpf: TStringField;
+    qryGridapelido: TStringField;
+    procedure DataModuleCreate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    Select,From:string;
+    SelectG,FromG:string;
+  end;
+
+var
+  ClienteDtm: TClienteDtm;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+uses ConexaoDM;
+
+{$R *.dfm}
+
+{ TClienteDtm }
+
+procedure TClienteDtm.DataModuleCreate(Sender: TObject);
+begin
+  Select:='SELECT c.cod_cliente,'+
+          ' c.nome_cliente,'+
+          ' c.cpf,'+
+          ' c.apelido,'+
+          ' c.titulo_eleitor,'+
+          ' c.endereco,'+
+          ' c.bairro,'+
+          ' c.cidade,'+
+          ' c.estado,'+
+          ' c.cep,'+
+          ' c.numero,'+
+          ' c.nome_conjugue,'+
+          ' c.cpf_conjugue,'+
+          ' c.nome_dependente1,'+
+          ' c.cpf_dependente1,'+
+          ' c.parentesco_depentente1,'+
+          ' c.nome_dependente2,'+
+          ' c.cpf_dependente2,'+
+          ' c.parentesco_depentente2,'+
+          ' c.nome_dependente3,'+
+          ' c.cpf_dependente3,'+
+          ' c.parentesco_depentente3,'+
+          ' c.nome_dependente4,'+
+          ' c.cpf_dependente4,'+
+          ' c.parentesco_depentente4,'+
+          ' c.nome_dependente5,'+
+          ' c.cpf_dependente5,'+
+          ' c.parentesco_depentente5,'+
+          ' c.ultima_checagem,'+
+          ' c.data_cadastro ';
+  From:='FROM cliente c ';
+
+  Selectg:='';
+  FromG:='';
+end;
+
+end.

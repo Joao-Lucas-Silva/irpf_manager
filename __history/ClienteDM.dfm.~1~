@@ -1,0 +1,5 @@
+object ClienteDtm: TClienteDtm
+  OldCreateOrder = False
+  Height = 264
+  Width = 375
+end

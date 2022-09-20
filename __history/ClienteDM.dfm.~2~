@@ -1,0 +1,13 @@
+object ClienteDtm: TClienteDtm
+  OldCreateOrder = False
+  Height = 264
+  Width = 375
+  object qryCliente: TFDQuery
+    Left = 48
+    Top = 32
+  end
+  object cmd: TFDCommand
+    Left = 112
+    Top = 32
+  end
+end

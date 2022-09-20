@@ -1,0 +1,20 @@
+program infoirrf;
+
+uses
+  Vcl.Forms,
+  PrincipalForm in 'PrincipalForm.pas' {PrincipalFrm},
+  ConexaoDM in 'ConexaoDM.pas' {ConexaoDtm: TDataModule},
+  ConexaoForm in 'ConexaoForm.pas' {ConexaoFrm},
+  FerramentasForm in 'FerramentasForm.pas' {FerramentasFrm};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TPrincipalFrm, PrincipalFrm);
+  Application.CreateForm(TConexaoDtm, ConexaoDtm);
+  Application.CreateForm(TConexaoFrm, ConexaoFrm);
+  Application.CreateForm(TFerramentasFrm, FerramentasFrm);
+  Application.Run;
+end.

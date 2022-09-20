@@ -1,0 +1,28 @@
+program infoirrf;
+
+uses
+  Vcl.Forms,
+  PrincipalForm in 'PrincipalForm.pas' {PrincipalFrm},
+  ConexaoDM in 'ConexaoDM.pas' {ConexaoDtm: TDataModule},
+  ConexaoForm in 'ConexaoForm.pas' {ConexaoFrm},
+  FerramentasForm in 'FerramentasForm.pas' {FerramentasFrm},
+  MsgPadraoForm in 'MsgPadraoForm.pas' {MsgPadraoFrm},
+  ConfiguracoesForm in 'ConfiguracoesForm.pas' {ConfiguracoesFrm},
+  CadastrosChecklistIrpfForm in 'CadastrosChecklistIrpfForm.pas' {CadastrosChecklistIrpfFrm},
+  ClienteDM in 'ClienteDM.pas' {ClienteDtm: TDataModule};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TPrincipalFrm, PrincipalFrm);
+  Application.CreateForm(TConexaoDtm, ConexaoDtm);
+  Application.CreateForm(TConexaoFrm, ConexaoFrm);
+  Application.CreateForm(TFerramentasFrm, FerramentasFrm);
+  Application.CreateForm(TMsgPadraoFrm, MsgPadraoFrm);
+  Application.CreateForm(TConfiguracoesFrm, ConfiguracoesFrm);
+  Application.CreateForm(TCadastrosChecklistIrpfFrm, CadastrosChecklistIrpfFrm);
+  Application.CreateForm(TClienteDtm, ClienteDtm);
+  Application.Run;
+end.
