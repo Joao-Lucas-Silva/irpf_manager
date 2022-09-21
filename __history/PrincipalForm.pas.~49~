@@ -23,7 +23,7 @@ type
     SpeedButton2: TSpeedButton;
     Panel3: TPanel;
     btnSair: TSpeedButton;
-    SpeedButton3: TSpeedButton;
+    btnConfiguracoes: TSpeedButton;
     Panel4: TPanel;
     lblSaudacoes: TLabel;
     procedure FormCreate(Sender: TObject);
@@ -99,6 +99,7 @@ begin
     on e:exception do
     begin
       FerramentasFrm.MsgPadrao(PChar('ERRO: '+e.Message),'ERRO',2);
+      Result:=False;
     end;
   end;
 end;
@@ -116,8 +117,8 @@ begin
   Caminho:='';
   Caminho:=ExtractFilePath(Application.ExeName);
 
-  if not (DirectoryExists(Caminho+'\Temps\')) then
-    ForceDirectories(Caminho+'\Temps\');
+  if not (DirectoryExists(Caminho+'Temps\')) then
+    ForceDirectories(Caminho+'Temps\');
 
   Conectado:=False;
   if not (FileExists(Caminho+'DadosConexao.txt')) then
@@ -125,17 +126,19 @@ begin
     Application.CreateForm(TConexaoFrm,ConexaoFrm);
     try
       if (ConexaoFrm.ShowModal=mrOk) then
-        Conectado:=True;
+        Conectado:=True
+      else
+        Application.Terminate;
     finally
       FreeAndNil(ConexaoFrm);
     end;
   end
   else
   if (Conectar) then
-    Conectado:=True
-  else
+    Conectado:=True;
+
+  if not (Conectado) then
     Application.Terminate;
-    PostMessage(Handle,WM_CLOSE,0,0);
 end;
 
 procedure TPrincipalFrm.Iniciar;
@@ -155,15 +158,15 @@ begin
     lNome.LoadFromFile(Caminho+'nome.txt');
     if (StrToTime(FormatDateTime('hh:mm',now))>=StrToTime('12:00')) and
        (StrToTime(FormatDateTime('hh:mm',now))<StrToTime('19:00')) then
-      Result:='Boa tarde, '+lNome.Strings[0]+'!'
+      Result:=' Boa tarde, '+lNome.Strings[0]+'!'
     else
     if (StrToTime(FormatDateTime('hh:mm',now))>=StrToTime('01:00')) and
        (StrToTime(FormatDateTime('hh:mm',now))<StrToTime('12:00')) then
-      Result:='Bom dia, '+lNome.Strings[0]+'!'
+      Result:=' Bom dia, '+lNome.Strings[0]+'!'
     else
     if (StrToTime(FormatDateTime('hh:mm',now))>=StrToTime('19:00')) and
        (StrToTime(FormatDateTime('hh:mm',now))<=StrToTime('23:59')) then
-      Result:='Boa noite, '+lNome.Strings[0]+'!'
+      Result:=' Boa noite, '+lNome.Strings[0]+'!'
   end;
 end;
 

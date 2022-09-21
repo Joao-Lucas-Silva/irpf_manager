@@ -1,3 +1,7 @@
+{
+Projeto pessoal para auxiliar na declaração de IRPF.
+Por: João Lucas.
+}
 unit PrincipalForm;
 
 interface
